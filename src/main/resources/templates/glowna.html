@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<!--<text th:text="${post.tresc}"></text>-->
+
+
+<body style="background: linear-gradient(to bottom, #1f1f1f, #0d2562);">
+
+<div class="container">
+    <div class="header">
+        dsgd
+    </div>
+    <br>
+    <div class="content">
+        <div th:each="dzial: ${dzialy}">
+            <div class="forum">
+                <div style="height:100px;">
+
+                    <text th:text="${dzial.nazwaDzialu}"></text>
+                    <a th:href="@{'/post/nowypost?dzial_id='+${dzial.id}}">Nowy post</a>
+<!--                    <a th:href="@{'/category/edit/' + ${category.id}}">view</a>-->
+                </div>
+                <div th:each="post: ${dzial.posty}">
+                    <div class="sekcja">
+                        <div class="sekcja_lewo">
+                            <a th:href="@{'/post/' + ${post.id}}"><text th:text="${post.nazwa}"></text></a>
+                        </div>
+                        <div class="sekcja_srodek">220/2442</div>
+                        <div class="sekcja_prawo">Ostatnia aktywność : <text th:text="${post.zamknietePrzez}"></text></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+.container{
+	width: 100%;
+	margin-bottom: 20px;
+}
+.header{
+	width: 1300px;
+	height: 300px;
+	background-color: wheat;
+	opacity: 0.055;
+	margin-bottom: 20px;
+	margin: auto;
+}
+.content{
+	width: 1000px;
+	margin: auto;
+	background-color: rgb(30, 30, 40);
+}
+.forum{
+	width: 980px;
+	color:white;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size: 34px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: auto;
+}
+.sekcja{
+	height: 100px;
+	width: 900px;
+	margin: auto;
+	padding: auto;
+}
+.sekcja_lewo{
+	width: 300px;
+	text-align: center;
+	float:left;
+	color: red;
+}
+.sekcja_srodek{
+	text-align: center;
+	width: 300px;
+	float: left;
+	font-size: 16px;
+	color: rgb(255, 255, 255);
+}
+.sekcja_prawo{
+	text-align: center;
+	width: 300px;
+	font-size: 12px;
+	float: left;
+	color: grey;
+}
+.post{
+	margin: auto;
+	width: 900px;
+}
+.lewo{
+	color: rgb(255, 255, 255);
+	background-color: rgb(30, 30, 40);
+	width: 300px;
+	float: left;
+}
+.prawo{
+	color: rgb(255, 255, 255);
+	background-color: rgb(47, 47, 64);
+	width: 600px;
+	float: left;
+}
+
+  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
+<!--<text th:text="${post.tresc}"></text>-->
+
+<body style="background: linear-gradient(to bottom, #1f1f1f, #0d2562);">
+
+<div class="container">
+  <div class="header">
+    dsgd
+  </div>
+  <br>
+  <div class="content">
+    <div class="post">
+      <div class="lewo">
+        Profil uzytkownika <text th:text="${post.zalozonePrzez}"></text>
+      </div>
+      <div class="prawo">
+        <text th:text="${post.nazwa}"></text>
+        <br>
+        <text th:text="${post.tresc}"></text>
+      </div>
+    </div>
+    <div th:each="odpowiedz: ${post.odpowiedzi}">
+    <div class="odpowiedz">
+      <div class="lewo">
+        Profil uzytkownika <text th:text="${odpowiedz.uzytkownik}"></text>
+      </div>
+      <div class="prawo">
+        <text th:text="${odpowiedz.tresc}"></text>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

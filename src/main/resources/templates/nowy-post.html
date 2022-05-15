@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body style="background: linear-gradient(to bottom, #1f1f1f, #0d2562);">
+
+
+<div class="container">
+  <div class="header">
+    dsgd
+  </div>
+  <br>
+  <div class="content">
+    <form action="http://www.localhost:8080/api/post/dodajPost" style="color:white;" method="post">
+      <input style="display:none;" type="text" name="dzial_id" th:value="${dzial_id}"/>
+      <label>Nawa tematu</label> <input type="text" name="nazwa" />
+      <br>
+      <label>Tresc</label> <input type="text" name="tresc" size="50"/>
+      <input type="submit" value="Wyślij" />
+    </form>
+
+
+  </div>
+</div>
+
+</body>
+</html>
