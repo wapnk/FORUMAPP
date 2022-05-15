@@ -32,7 +32,7 @@ public class Post {
     private String zamknietePrzez;
     private LocalDateTime dataZamkniecia;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Dzial dzial;
 
 }

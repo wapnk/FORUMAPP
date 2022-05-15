@@ -22,7 +22,8 @@ public class Zasilator {
 
     @PostConstruct
     public void met(){
-        posty();
+//        posty();
+        dzialy();
     }
 
     public void dzialy(){
@@ -38,8 +39,8 @@ public class Zasilator {
 //        posty1.forEach(post -> post.setDzial(dzial1));
 //        posty2.forEach(post -> post.setDzial(dzial2));
 
-//        dzialService.zapiszWszystkie(List.of(dzial1,dzial2));
-        postService.zapiszWszystkie(posty1);
+        dzialService.zapiszWszystkie(List.of(dzial1,dzial2));
+//        postService.zapiszWszystkie(posty1);
         List<Dzial> dzialy=List.of(dzial1,dzial2);
     }
     public List<Post> posty(){
@@ -70,9 +71,6 @@ public class Zasilator {
         List<Post> posty = List.of(post1,post2,post3);
         posty=postService.zapiszWszystkie(posty);
         System.out.println(posty.toString());
-//asd
-
-        //dsfdsf
 
 //        postService.zapisz(posty);
         return posty;
