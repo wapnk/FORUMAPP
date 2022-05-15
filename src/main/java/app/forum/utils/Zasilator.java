@@ -72,6 +72,8 @@ public class Zasilator {
         System.out.println(posty.toString());
 //asd
 
+        //dsfdsf
+
 //        postService.zapisz(posty);
         return posty;
     }
