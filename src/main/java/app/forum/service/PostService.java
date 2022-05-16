@@ -1,6 +1,6 @@
 package app.forum.service;
 
-import app.forum.dto.PostDTO;
+import app.forum.model.Dzial;
 import app.forum.model.Post;
 import app.forum.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +24,9 @@ public class PostService {
 
 
     public Post dodajPost(Post post, Long dzial_id){
-//        Dzial dzial=dzialService.pobierzDzialPoId(dzial_id);
-//        List<Post> posty = dzial.getPosty();
-//        posty.add(post);
-//        dzial.setPosty(posty);
-//        post.setDzial(dzial);
+        Dzial dzial=dzialService.pobierzDzialPoId(dzial_id);
+        post.setDzial(dzial);
+        dzial.getPosty().add(post);;
         return postRepository.save(post);
     }
 

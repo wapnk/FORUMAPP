@@ -22,7 +22,15 @@ public class Odpowiedz {
     @ManyToOne
     private Uzytkownik uzytkownik;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
+    @Override
+    public String toString() {
+        return "Odpowiedz{" +
+                "id=" + id +
+                ", tresc='" + tresc + '\'' +
+                ", dataDodania=" + dataDodania +
+                '}';
+    }
 }

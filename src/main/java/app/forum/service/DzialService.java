@@ -14,8 +14,13 @@ public class DzialService  {
 
     @Autowired
     private DzialRepository dzialRepository;
+
+    public Dzial pobierzDzialPoId(Long id){
+        return dzialRepository.getById(id);
+    }
     public List<Dzial> pobierzDzialy() {
-        return dzialRepository.getAll();
+        List<Dzial> dzialy = dzialRepository.getAll();
+        return dzialy;
     }
 
 

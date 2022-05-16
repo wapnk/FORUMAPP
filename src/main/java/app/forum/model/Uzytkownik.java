@@ -27,4 +27,13 @@ public class Uzytkownik {
     @OneToMany(mappedBy = "uzytkownik")
     private List<Odpowiedz> odpowiedzi;
 
+    @Override
+    public String toString() {
+        return "Uzytkownik{" +
+                "id=" + id +
+                ", nazwa='" + nazwa + '\'' +
+                ", email='" + email + '\'' +
+                ", haslo='" + haslo + '\'' +
+                '}';
+    }
 }

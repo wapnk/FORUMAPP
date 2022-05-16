@@ -12,6 +12,7 @@ import java.util.List;
 @Data
 @Builder
 @Entity
+//@ToString
 public class Post {
 
     @Id
@@ -21,18 +22,28 @@ public class Post {
     private String nazwa;
     private String tresc;
 
-    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
-
+    @OneToMany(mappedBy = "post",fetch = FetchType.EAGER)
     private List<Odpowiedz> odpowiedzi;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Uzytkownik zalozonePrzez;
     private LocalDateTime dataZalozenia;
     private String zamknietePrzez;
     private LocalDateTime dataZamkniecia;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Dzial dzial;
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", nazwa='" + nazwa + '\'' +
+                ", tresc='" + tresc + '\'' +
+                ", dataZalozenia=" + dataZalozenia +
+                ", zamknietePrzez='" + zamknietePrzez + '\'' +
+                ", dataZamkniecia=" + dataZamkniecia +
+                '}';
+    }
 }

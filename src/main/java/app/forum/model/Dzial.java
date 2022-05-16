@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Builder
+//@ToString
 public class Dzial {
 
     @Id
@@ -20,8 +21,15 @@ public class Dzial {
     private String nazwaDzialu;
     private String opis;
 
-    @OneToMany(mappedBy = "dzial",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dzial",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Post> posty;
 
-
+    @Override
+    public String toString() {
+        return "Dzial{" +
+                "id=" + id +
+                ", nazwaDzialu='" + nazwaDzialu + '\'' +
+                ", opis='" + opis + '\'' +
+                '}';
+    }
 }

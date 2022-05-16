@@ -1,21 +1,18 @@
 package app.forum.restcontroller;
 
-import app.forum.model.Dzial;
+import app.forum.dto.PostDTO;
 import app.forum.model.Post;
 import app.forum.service.DzialService;
 import app.forum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Id;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@org.springframework.web.bind.annotation.RestController
+@RestController
 @RequestMapping("/api/post")
 public class PostRestController {
 
@@ -32,10 +29,14 @@ public class PostRestController {
 
     @GetMapping("{id}")
     public Post pobierzPost(@PathVariable Long id) {
-        System.out.println(id);
-        System.out.println("met");
         Post post = postyService.pobierzPoId(id);
-        System.out.println(post);
+//        PostDTO postDTO=PostDTO.builder()
+//                .id(44L)
+//                .nazwa("nazwa")
+//                .tresc("tresc")
+//                .dataZalozenia(LocalDateTime.now())
+//                .odpowiedzi(post.getOdpowiedzi())
+//                .build();
         return post;
     }
 

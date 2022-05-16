@@ -1,6 +1,7 @@
 package app.forum.controller;
 
 import app.forum.model.Dzial;
+import app.forum.model.Odpowiedz;
 import app.forum.model.Post;
 import app.forum.restcontroller.DzialRestController;
 import app.forum.restcontroller.PostRestController;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @org.springframework.stereotype.Controller
@@ -40,7 +42,7 @@ public class Controller {
 
     @GetMapping("/post/nowypost")
     public String nowyPost(Model model, @RequestParam(name = "dzial_id") Long dzial_id) {
-        model.addAttribute("dzial_id",dzial_id);
+        model.addAttribute("dzial_id", dzial_id);
         System.out.println(dzial_id);
         return "nowy-post";
     }
