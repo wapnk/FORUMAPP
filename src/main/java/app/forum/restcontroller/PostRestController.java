@@ -5,11 +5,15 @@ import app.forum.model.Post;
 import app.forum.service.DzialService;
 import app.forum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -23,12 +27,14 @@ public class PostRestController {
 
     @GetMapping("/pobierzPosty")
     public List<Post> pobierzPosty() {
+
         postyService.pobierzPosty();
         return null;
     }
-
     @GetMapping("{id}")
     public Post pobierzPost(@PathVariable Long id) {
+
+
         Post post = postyService.pobierzPoId(id);
 //        PostDTO postDTO=PostDTO.builder()
 //                .id(44L)

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +43,22 @@ public class Controller {
     }
 
     @GetMapping("/post/nowypost")
-    public String nowyPost(Model model, @RequestParam(name = "dzial_id") Long dzial_id) {
+    public String nowyPost(Model model, @RequestParam(name = "dzial_id") Long dzial_id, HttpServletRequest request) {
+        Cookie[] c = request.getCookies();
         model.addAttribute("dzial_id", dzial_id);
         System.out.println(dzial_id);
         return "nowy-post";
+    }
+
+    @GetMapping("konto/zarejestruj")
+    public String zarejestruj(Model model) {
+
+        return "zarejestruj";
+    }
+
+    @GetMapping("konto/zaloguj")
+    public String zaloguj(Model model) {
+
+        return "zaloguj";
     }
 }

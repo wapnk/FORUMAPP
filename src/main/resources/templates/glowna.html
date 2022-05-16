@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .zaloguj{
+        font-size:20px;
+        position: absolute;
+        right: 0%;
+        color:blue;
+        }
+        .zarejestruj{
+        font-size:20px;
+        color:white;
+        position: absolute;
+        right: 0%;
+        }
+    </style>
 </head>
 <!--<text th:text="${post.tresc}"></text>-->
 
@@ -11,8 +25,13 @@
 <body style="background: linear-gradient(to bottom, #1f1f1f, #0d2562);">
 
 <div class="container">
+
+
+
     <div class="header">
-        dsgd
+        <a th:href="@{konto/zaloguj}" class="zaloguj">Zaloguj</a>
+        <br>
+        <a th:href="@{konto/zarejestruj}" class="zarejestruj">Zarejestruj się</a>
     </div>
     <br>
     <div class="content">
