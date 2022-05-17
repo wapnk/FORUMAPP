@@ -26,26 +26,35 @@ public class SesjaService {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession();
 
-        log.info("getCreationTime "+attr.getRequest().getSession().getCreationTime());
-        log.info("getAttributeNames "+attr.getRequest().getSession().getAttributeNames());
-        log.info("getId "+attr.getRequest().getSession().getId());
-        log.info("getMaxInactiveInterval "+attr.getRequest().getSession().getMaxInactiveInterval());
+        log.info("getCreationTime " + attr.getRequest().getSession().getCreationTime());
+        log.info("getAttributeNames " + attr.getRequest().getSession().getAttributeNames());
+        log.info("getId " + attr.getRequest().getSession().getId());
+        log.info("getMaxInactiveInterval " + attr.getRequest().getSession().getMaxInactiveInterval());
 
+        String klucz = session.getId();
+        Sesja aktualnaSesja = sesjaRepository.pobierzPoKluczu(klucz);
+
+        if (aktualnaSesja != null) {
+            log.info("Sesja o tym kluczu juz istnieje !");
+            log.info("data utworzenia : " + aktualnaSesja.getDataUtworzenia());
+            log.info("dlugosc sesji : " + aktualnaSesja.getDlugoscSesji());
+        }
 
         Sesja sesja = Sesja.builder()
                 .adresIP(attr.getRequest().getRemoteAddr())
                 .dataUtworzenia(LocalDateTime.now())
                 .dataZakonczenia(null)
                 .dlugoscSesji((long) session.getMaxInactiveInterval())
-                .klucz(session.getId())
+                .klucz(klucz)
                 .uzytkownik(uzytkownik)
                 .build();
 
         sesjaRepository.save(sesja);
 
     }
+
     //TODO
-    public void zamknijSesje(Sesja sesja){
+    public void zamknijSesje(Sesja sesja) {
 
         sesja.setDataZakonczenia(LocalDateTime.now());
         sesjaRepository.save(sesja);
