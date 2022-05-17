@@ -17,6 +17,10 @@
         position: absolute;
         right: 0%;
         }
+        .login{
+        font-size:30px;
+        color:green
+        }
     </style>
 </head>
 <!--<text th:text="${post.tresc}"></text>-->
@@ -29,9 +33,13 @@
 
 
     <div class="header">
-        <a th:href="@{konto/zaloguj}" class="zaloguj">Zaloguj</a>
+        <a th:href="@{login}" class="zaloguj">Zaloguj</a>
         <br>
         <a th:href="@{konto/zarejestruj}" class="zarejestruj">Zarejestruj się</a>
+        <br>
+        <a th:href="@{glowna}" class="login">STRONA GŁÓWNA</a>
+        <br>
+        <text th:text="${nazwa}" class="login"></text>
     </div>
     <br>
     <div class="content">

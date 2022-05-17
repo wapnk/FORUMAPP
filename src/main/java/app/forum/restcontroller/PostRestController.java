@@ -6,6 +6,8 @@ import app.forum.service.DzialService;
 import app.forum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -33,8 +35,6 @@ public class PostRestController {
     }
     @GetMapping("{id}")
     public Post pobierzPost(@PathVariable Long id) {
-
-
         Post post = postyService.pobierzPoId(id);
 //        PostDTO postDTO=PostDTO.builder()
 //                .id(44L)

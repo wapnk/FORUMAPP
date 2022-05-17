@@ -32,6 +32,9 @@ public class Uzytkownik implements UserDetails {
     @OneToMany(mappedBy = "uzytkownik")
     private List<Odpowiedz> odpowiedzi;
 
+    @OneToMany(mappedBy = "uzytkownik")
+    private List<Sesja> sesje;
+
     @Override
     public String toString() {
         return "Uzytkownik{" +
