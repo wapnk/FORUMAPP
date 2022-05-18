@@ -57,8 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/sql/**").permitAll()
                 .antMatchers("/glowna").permitAll()
+                .antMatchers("/api/uzytkownik/zarejestruj").permitAll()
                 .antMatchers("/api/**").authenticated()
-                .antMatchers("/api/konto/zarejestruj/**").permitAll()
                 .and().formLogin().permitAll();
 
     }

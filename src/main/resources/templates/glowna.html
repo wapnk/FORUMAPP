@@ -5,6 +5,10 @@
     <title>Title</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        body{
+        background: linear-gradient(to bottom, #1f1f1f, #0d2562);
+        height:1000px;
+        }
         .zaloguj{
         font-size:20px;
         position: absolute;
@@ -26,7 +30,7 @@
 <!--<text th:text="${post.tresc}"></text>-->
 
 
-<body style="background: linear-gradient(to bottom, #1f1f1f, #0d2562);">
+<body>
 
 <div class="container">
 
@@ -48,7 +52,7 @@
                 <div style="height:100px;">
 
                     <text th:text="${dzial.nazwaDzialu}"></text>
-                    <a th:href="@{'/post/nowypost?dzial_id='+${dzial.id}}">Nowy post</a>
+                    <a th:href="@{'/post/nowypost?dzialId='+${dzial.id}}">Nowy post</a>
 <!--                    <a th:href="@{'/category/edit/' + ${category.id}}">view</a>-->
                 </div>
                 <div th:each="post: ${dzial.posty}">

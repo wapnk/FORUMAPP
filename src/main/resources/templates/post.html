@@ -1,120 +1,101 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  lang="pl">
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <style>
-.container{
-	width: 100%;
-	margin-bottom: 20px;
-}
-.header{
-	width: 1300px;
-	height: 300px;
-	background-color: #0f1a323d;
-	margin-bottom: 20px;
-	margin: auto;
-}
-.content{
-	width: 1000px;
-	margin: auto;
-	background-color: rgb(30, 30, 40);
-}
-.forum{
-	width: 980px;
-	color:white;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	font-size: 34px;
-	font-family: Arial, Helvetica, sans-serif;
-	margin: auto;
-}
-.sekcja{
-	height: 100px;
-	width: 900px;
-	margin: auto;
-	padding: auto;
-}
-.sekcja_lewo{
-	width: 300px;
-	text-align: center;
-	float:left;
-	color: red;
-}
-.sekcja_srodek{
-	text-align: center;
-	width: 300px;
-	float: left;
-	font-size: 16px;
-	color: rgb(255, 255, 255);
-}
-.sekcja_prawo{
-	text-align: center;
-	width: 300px;
-	font-size: 12px;
-	float: left;
-	color: grey;
-}
-.post{
-	margin: auto;
-	width: 900px;
-}
-.lewo{
-	color: rgb(255, 255, 255);
-	background-color: rgb(30, 30, 40);
-	width: 300px;
-	float: left;
-}
-.prawo{
-	color: rgb(255, 255, 255);
-	background-color: rgb(47, 47, 64);
-	width: 600px;
-	float: left;
-}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+                body{
+            background-color :#1c1c1c;
+        }
+        input{
+            background-color: #393939;
+            font-size: 24px;
+            margin-bottom: 20px;
+            border:1px solid white;
+        }
+        label{
+            font-size: 24px;
 
-  </style>
-  <link rel="stylesheet" href="style.css">
+        }
+        .submit{
+            background-color :#ffffff;
+
+        }
+        .cointainer{
+            margin: auto;
+            width: 1200px;
+            height: 1000px;
+            padding: 20px;
+            padding-top:100px;
+            background: linear-gradient(to bottom, #1f1f1f, #242424);
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+            color: white;
+        }
+        .tytul{
+            font-size: 34px;
+            text-align: center;
+            color:white
+        }
+
+        .formularz{
+            padding-top:100px;
+            margin-left:50px;
+        }
+        .sekcja{
+            width: 1000px;
+            /* height: 300px; */
+            margin: auto;
+            margin-bottom: 50px;
+            padding: 20px;
+            border: 1px solid white;
+        }
+        .sekcjal{
+            width: 33%;
+            float: left;
+            margin: auto;
+            padding-top: 50px;
+            text-align: center;
+        }
+        .sekcjap{
+            min-height: 100px;
+            width: 56%;
+            float: left;
+            border-left: 1px solid white;
+            padding-left: 60px;
+        }
+        .odpowiedz{
+            text-align: right;
+        }
+
+    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <!--<text th:text="${post.tresc}"></text>-->
+<!--<div th:each="post: ${dzial.posty}">-->
+<body>
 
-<body style="background: linear-gradient(to bottom, #1f1f1f, #0d2562);">
+<div class="cointainer">
 
-<div class="container">
-  <div class="header">
-    dsgd
-  </div>
-  <br>
-  <div class="content">
-    <a th:href="@{'/odpowiedz/nowaodpowiedz?post_id='+${post.id}}" style="text-align:right;">Dodaj komentarz</a>
+    <div class="sekcja" style="background-color :#1e1e1e;">
+        <div th:text="${post.zalozonePrzez.nazwa}" class="sekcjal"></div>
+        <div th:text="${post.tresc}" class="sekcjap"></div>
+        <div style="clear: both;"></div>
+    </div>
 
+    <div th:each="odp: ${post.odpowiedzi}" class="sekcja">
 
-    <form action="http://www.localhost:8080/api/odpowiedz/dodajOdpowiedz" style="color:white;" method="post">
-      <input style="display:none;" type="text" name="post_id" th:value="${post.id}"/>
-      <label>Tresc</label> <input type="text" name="tresc" size="50"/>
-      <input type="submit" value="Dodaj" />
+        <div th:text="${odp.uzytkownik.nazwa}" class="sekcjal"></div>
+        <div th:text="${odp.tresc}" class="sekcjap"></div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <form action="http://www.localhost:8080/api/uzytkownik/zarejestruj" class="odpowiedz" method="post">
+        <!--  <input style="display:none;" type="text" name="dzial_id" th:value="${nick}"/>-->
+        <input type="text" name="odpowiedz"/>
+        <input class="submit" type="submit" value="dodaj komentarz" />
     </form>
 
-    <div class="post">
-      <div class="lewo">
-        Profil uzytkownika <text th:text="${post.zalozonePrzez}"></text>
-      </div>
-      <div class="prawo">
-        <text th:text="${post.nazwa}"></text>
-        <br>
-        <text th:text="${post.tresc}"></text>
-      </div>
-    </div>
-    <div th:each="odpowiedz: ${post.odpowiedzi}">
-    <div class="odpowiedz">
-      <div class="lewo">
-        Profil uzytkownika <text th:text="${odpowiedz.uzytkownik}"></text>
-      </div>
-      <div class="prawo">
-        <text th:text="${odpowiedz.tresc}"></text>
-      </div>
-    </div>
-    </div>
-  </div>
 </div>
 </body>
 </html>

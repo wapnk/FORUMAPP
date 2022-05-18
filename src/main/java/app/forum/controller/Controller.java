@@ -51,15 +51,7 @@ public class Controller {
 
     @GetMapping("/glowna")
     public String glowna(Model model) {
-        SessionRegistry sessionRegistry = new SessionRegistryImpl();
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpServletRequest httpServletRequest = attr.getRequest();
-
-        log.info("getCreationTime "+attr.getRequest().getSession().getCreationTime());
-        log.info("getAttributeNames "+attr.getRequest().getSession().getAttributeNames());
-        log.info("getId "+attr.getRequest().getSession().getId());
-        log.info("getMaxInactiveInterval "+attr.getRequest().getSession().getMaxInactiveInterval());
-
         Uzytkownik u = uzytkownikService.zwrocZalogowanego();
         String nazwa = u.getNazwa();
         List<Dzial> dzialy = dzialRestController.pobierzDzialy();
@@ -70,17 +62,26 @@ public class Controller {
 
     @GetMapping("/post/{id}")
     public String pobierzPost(@PathVariable Long id, Model model) {
-//        SessionAutoConfiguration session = new SessionAutoConfiguration();
         Post post = postRestController.pobierzPost(id);
+        List<Odpowiedz> odpowiedzi = post.getOdpowiedzi();
+        Uzytkownik u = post.getZalozonePrzez();
+        if (odpowiedzi != null && !odpowiedzi.isEmpty()) {
+            odpowiedzi.forEach(o -> log.info(o.toString()));
+        } else {
+            log.info(odpowiedzi);
+        }
+        if (u != null) {
+            log.info(u.toString());
+        } else {
+            log.info(u);
+        }
         model.addAttribute("post", post);
         return "post";
     }
 
     @GetMapping("/post/nowypost")
-    public String nowyPost(Model model, @RequestParam(name = "dzial_id") Long dzial_id, HttpServletRequest request) {
-        Cookie[] c = request.getCookies();
-        model.addAttribute("dzial_id", dzial_id);
-        System.out.println(dzial_id);
+    public String nowyPost(Model model, @RequestParam(name = "dzialId") Long dzialId, HttpServletRequest request) {
+        model.addAttribute("dzialId", dzialId);
         return "nowy-post";
     }
 
@@ -88,11 +89,5 @@ public class Controller {
     public String zarejestruj(Model model) {
 
         return "zarejestruj";
-    }
-
-    @GetMapping("konto/zaloguj")
-    public String zaloguj(Model model) {
-
-        return "zaloguj";
     }
 }

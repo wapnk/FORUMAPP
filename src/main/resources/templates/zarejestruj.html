@@ -1,97 +1,62 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+  <!-- <link rel="stylesheet" href="style.css"> -->
   <style>
-<!--.container{-->
-<!--	width: 100%;-->
-<!--	margin-bottom: 20px;-->
-<!--}-->
-<!--.header{-->
-<!--	width: 1300px;-->
-<!--	height: 300px;-->
-<!--	background-color: #0f1a323d;-->
-<!--	margin-bottom: 20px;-->
-<!--	margin: auto;-->
-<!--}-->
-<!--.content{-->
-<!--	width: 1000px;-->
-<!--	margin: auto;-->
-<!--	background-color: rgb(30, 30, 40);-->
-<!--}-->
-<!--.forum{-->
-<!--	width: 980px;-->
-<!--	color:white;-->
-<!--	padding-top: 10px;-->
-<!--	padding-bottom: 10px;-->
-<!--	font-size: 34px;-->
-<!--	font-family: Arial, Helvetica, sans-serif;-->
-<!--	margin: auto;-->
-<!--}-->
-<!--.sekcja{-->
-<!--	height: 100px;-->
-<!--	width: 900px;-->
-<!--	margin: auto;-->
-<!--	padding: auto;-->
-<!--}-->
-<!--.sekcja_lewo{-->
-<!--	width: 300px;-->
-<!--	text-align: center;-->
-<!--	float:left;-->
-<!--	color: red;-->
-<!--}-->
-<!--.sekcja_srodek{-->
-<!--	text-align: center;-->
-<!--	width: 300px;-->
-<!--	float: left;-->
-<!--	font-size: 16px;-->
-<!--	color: rgb(255, 255, 255);-->
-<!--}-->
-<!--.sekcja_prawo{-->
-<!--	text-align: center;-->
-<!--	width: 300px;-->
-<!--	font-size: 12px;-->
-<!--	float: left;-->
-<!--	color: grey;-->
-<!--}-->
-<!--.post{-->
-<!--	margin: auto;-->
-<!--	width: 900px;-->
-<!--}-->
-<!--.lewo{-->
-<!--	color: rgb(255, 255, 255);-->
-<!--	background-color: rgb(30, 30, 40);-->
-<!--	width: 300px;-->
-<!--	float: left;-->
-<!--}-->
-<!--.prawo{-->
-<!--	color: rgb(255, 255, 255);-->
-<!--	background-color: rgb(47, 47, 64);-->
-<!--	width: 600px;-->
-<!--	float: left;-->
-<!--}-->
+        body{
+            background-color :#1c1c1c;
+        }
+        input{
+            background-color: #393939;;
+            color: white;
+            font-size: 24px;
+            margin-bottom: 20px;
+            border:1px solid white;
+        }
+        label{
+            font-size: 24px;
 
-
-.zarejestruj{
-  font-size=25px;
-  color:white;
-}
-  </style>
-  <link rel="stylesheet" href="style.css">
+        }
+        .tytul{
+            font-size: 34px;
+            text-align: center;
+            color:white
+        }
+        .cointainer{
+            margin: auto;
+            width: 1000px;
+            height: 1000px;
+            padding-top:100px;
+            padding-left: 20px;
+            padding-right: 20px;
+            background: linear-gradient(to bottom, #1f1f1f, #242424);
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+        }
+        .zarejestruj{
+            padding-top:100px;
+            color: white;
+            margin-left:50px;
+        }
+    </style>
 </head>
-<!--<text th:text="${post.tresc}"></text>-->
+<body>
+<div class="cointainer">
+  <div class="tytul">FORMULARZ REJESTRACYJNY</div>
 
-<body style="background: linear-gradient(to bottom, #1f1f1f, #0d2562);">
 
-<form action="http://www.localhost:8080/api/konto/zarejestruj" class="zarejestruj" method="post">
-  <!--  <input style="display:none;" type="text" name="dzial_id" th:value="${nick}"/>-->
-  <label>nazwa</label> <input type="text" name="nazwa" />
-  <br>
-  <label>haslo</label> <input type="password" name="haslo" size="50"/>
-  <input type="submit" value="Zaloguj" />
-</form>
+  <form action="http://www.localhost:8080/api/uzytkownik/zarejestruj" class="zarejestruj" method="post">
+    <!--  <input style="display:none;" type="text" name="dzial_id" th:value="${nick}"/>-->
+    <label class="label">nazwa</label> <input type="text" name="nazwa"/>
+    <br>
+    <label class="label">hasło</label> <input type="password" name="haslo1" size="20"/>
+    <br>
+    <label class="label">powtórz hasło</label> <input type="password" name="haslo2" size="20"/>
+    <br>
+    <label class="label">email</label> <input type="text" name="email">
+    <br>
+    <input type="submit" value="Zarejestruj" />
+  </form>
 
+
+</div>
 
 </body>
-</html>

@@ -26,7 +26,7 @@ public class Uzytkownik implements UserDetails {
     private String email;
     private String haslo;
 
-    @OneToMany(mappedBy = "zalozonePrzez")
+    @OneToMany(mappedBy = "zalozonePrzez",fetch = FetchType.EAGER)
     private List<Post> posty;
 
     @OneToMany(mappedBy = "uzytkownik")
