@@ -42,13 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        uzytkownikService.zapisz(Uzytkownik.builder()
-//                .haslo(passwordEncoder().encode("123"))
-                .haslo("123")
-                .nazwa("user1").build());
-        uzytkownikService.zapisz(Uzytkownik.builder()
-                .haslo("1234")
-                .nazwa("user2").build());
 
         http.csrf().disable()
                 .httpBasic().disable()

@@ -74,7 +74,7 @@ public class UzytkownikService implements UserDetailsService {
                     .nazwa(nazwa)
                     .email(null)
                     .id(null)
-                    .odpowiedzi(null)
+                    .komentarze(null)
                     .posty(null)
                     .build();
         }

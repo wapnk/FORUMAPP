@@ -1,30 +1,94 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  lang="pl">
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background-color :#1c1c1c;
+        }
+        input{
+            background-color: #393939;
+            font-size: 24px;
+            margin:30px;
+            /* margin-bottom: 20px; */
+            border:1px solid white;
+        }
+        label{
+            font-size: 24px;
+
+        }
+        .submit{
+            background-color :#ffffff;
+
+        }
+        .cointainer{
+            margin: auto;
+            width: 1200px;
+            height: 1000px;
+            padding: 20px;
+            padding-top:100px;
+            background: linear-gradient(to bottom, #1f1f1f, #242424);
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+            color: white;
+        }
+        .tytul{
+            font-size: 34px;
+            text-align: center;
+            color:white
+        }
+
+        .formularz{
+            padding-top:100px;
+            margin-left:50px;
+        }
+        .sekcja{
+            width: 1000px;
+            /* height: 300px; */
+            margin: auto;
+            margin-bottom: 50px;
+            padding: 20px;
+            border: 1px solid white;
+        }
+        .sekcjal{
+            width: 33%;
+            float: left;
+            margin: auto;
+            padding-top: 50px;
+            text-align: center;
+        }
+        .sekcjap{
+            width: 56%;
+            float: left;
+            border-left: 1px solid white;
+            padding-left: 60px;
+            min-height: 100px;
+        }
+        .odpowiedz{
+            text-align: right;
+        }
+        .nowypost{
+            margin:auto;
+            width: 950px;
+            min-height: 500px;
+            border: 1px solid white;
+            padding: 50px;
+        }
+    </style>
 </head>
-<body style="background: linear-gradient(to bottom, #1f1f1f, #0d2562);">
-
-
-<div class="container">
-  <div class="header">
-    dsgd
-  </div>
-  <br>
-  <div class="content">
-    <form action="http://www.localhost:8080/api/post/dodajPost" style="color:white;" method="post">
-      <input style="display:none;" type="text" name="dzialId" th:value="${dzialId}"/>
-      <label>Nawa tematu</label> <input type="text" name="nazwa" />
-      <br>
-      <label>Tresc</label> <input type="text" name="tresc" size="50"/>
-      <input type="submit" value="Wyślij" />
-    </form>
-
-
-  </div>
+<body>
+<div class="cointainer">
+    <div class="nowypost" style="background-color :#1e1e1e;">
+        <form action="/api/post/dodajPost" method="post">
+            <input style="display:none;" type="text" name="dzialId" th:value="${dzialId}"/>
+            <label>tytuł posta</label><input type="text" name="nazwa"/>
+            <br>
+            <label>treść</label><input type="text" name="tresc" style="min-width: 700px;min-height: 300px;"/>
+            <br>
+            <input class="submit" type="submit" value="dodaj post"/>
+        </form>
+    </div>
 </div>
-
 </body>
 </html>

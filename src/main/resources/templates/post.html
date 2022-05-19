@@ -64,7 +64,7 @@
             border-left: 1px solid white;
             padding-left: 60px;
         }
-        .odpowiedz{
+        .komentarz{
             text-align: right;
         }
 
@@ -83,16 +83,16 @@
         <div style="clear: both;"></div>
     </div>
 
-    <div th:each="odp: ${post.odpowiedzi}" class="sekcja">
+    <div th:each="kom: ${post.komentarze}" class="sekcja">
 
-        <div th:text="${odp.uzytkownik.nazwa}" class="sekcjal"></div>
-        <div th:text="${odp.tresc}" class="sekcjap"></div>
+        <div th:text="${kom.uzytkownik.nazwa}" class="sekcjal"></div>
+        <div th:text="${kom.tresc}" class="sekcjap"></div>
         <div style="clear: both;"></div>
     </div>
 
-    <form action="http://www.localhost:8080/api/uzytkownik/zarejestruj" class="odpowiedz" method="post">
-        <!--  <input style="display:none;" type="text" name="dzial_id" th:value="${nick}"/>-->
-        <input type="text" name="odpowiedz"/>
+    <form action="/api/komentarz/dodajKomentarz" class="komentarz" method="post">
+        <input style="display:none;" type="text" name="postId" th:value="${post.id}"/>
+        <input type="text" name="tresc"/>
         <input class="submit" type="submit" value="dodaj komentarz" />
     </form>
 

@@ -1,6 +1,6 @@
 package app.forum.dto;
 
-import app.forum.model.Odpowiedz;
+import app.forum.model.Komentarz;
 import lombok.Builder;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,7 +11,7 @@ public class PostDTO {
     public String nazwa;
     public String tresc;
     public String zalozonePrzez;
-    public List<Odpowiedz> odpowiedzi;
+    public List<Komentarz> odpowiedzi;
     public LocalDateTime dataZalozenia;
 
 

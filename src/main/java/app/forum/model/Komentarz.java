@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,9 +12,9 @@ import java.util.List;
 @Data
 @Entity
 @Builder
-public class Odpowiedz {
+public class Komentarz {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String tresc;
     private LocalDateTime dataDodania;
@@ -22,12 +22,12 @@ public class Odpowiedz {
     @ManyToOne
     private Uzytkownik uzytkownik;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Post post;
 
     @Override
     public String toString() {
-        return "Odpowiedz{" +
+        return "Komentarz{" +
                 "id=" + id +
                 ", tresc='" + tresc + '\'' +
                 ", dataDodania=" + dataDodania +

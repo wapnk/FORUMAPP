@@ -1,11 +1,13 @@
 package app.forum.restcontroller;
 
 import app.forum.dto.PostDTO;
+import app.forum.model.Komentarz;
 import app.forum.model.Post;
 import app.forum.service.DzialService;
 import app.forum.service.PostService;
 import app.forum.utils.DodajPostRequest;
 import app.forum.utils.OdpowiedzBazowa;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -20,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+@Log4j2
 @RestController
 @RequestMapping("/api/post")
 public class PostRestController {
@@ -39,6 +42,10 @@ public class PostRestController {
     @GetMapping("{id}")
     public Post pobierzPost(@PathVariable Long id) {
         Post post = postyService.pobierzPoId(id);
+        List<Komentarz> komentarze = post.getKomentarze();
+        log.info(komentarze);
+
+
 //        PostDTO postDTO=PostDTO.builder()
 //                .id(44L)
 //                .nazwa("nazwa")
@@ -53,7 +60,7 @@ public class PostRestController {
     public OdpowiedzBazowa dodajPost(DodajPostRequest request, HttpServletResponse response) throws IOException {
 
         OdpowiedzBazowa odp = postyService.dodajPost(request);
-        response.sendRedirect("http://www.localhost:8080/glowna");
+        if(odp.isSukces()) response.sendRedirect("http://www.localhost:8080/glowna");
         return odp;
     }
 

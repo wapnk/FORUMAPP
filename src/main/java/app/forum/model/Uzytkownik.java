@@ -4,7 +4,6 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -19,18 +18,18 @@ import java.util.List;
 public class Uzytkownik implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nazwa;
     private String email;
     private String haslo;
 
-    @OneToMany(mappedBy = "zalozonePrzez",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "zalozonePrzez")
     private List<Post> posty;
 
     @OneToMany(mappedBy = "uzytkownik")
-    private List<Odpowiedz> odpowiedzi;
+    private List<Komentarz> komentarze;
 
     @OneToMany(mappedBy = "uzytkownik")
     private List<Sesja> sesje;

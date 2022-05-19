@@ -1,73 +1,160 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  lang="pl">
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="style.css">
+    <!--    <link rel="stylesheet" href="style.css">-->
     <style>
+
         body{
-        background: linear-gradient(to bottom, #1f1f1f, #0d2562);
-        height:1000px;
+            background-color :#1c1c1c;
         }
-        .zaloguj{
-        font-size:20px;
-        position: absolute;
-        right: 0%;
-        color:blue;
+        input{
+            background-color: #393939;
+            font-size: 24px;
+            margin:30px;
+            /* margin-bottom: 20px; */
+            border:1px solid white;
         }
-        .zarejestruj{
-        font-size:20px;
-        color:white;
-        position: absolute;
-        right: 0%;
+        label{
+            font-size: 24px;
+
         }
-        .login{
-        font-size:30px;
-        color:green
+        .submit{
+            background-color :#ffffff;
+
         }
+        .container{
+            margin: auto;
+            width: 1200px;
+            height: 1000px;
+            padding: 20px;
+            padding-top:100px;
+            background: linear-gradient(to bottom, #1f1f1f, #242424);
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+            color: white;
+        }
+        .tytul{
+            font-size: 34px;
+            text-align: center;
+            color:white
+        }
+
+        .formularz{
+            padding-top:100px;
+            margin-left:50px;
+        }
+        .sekcja{
+            width: 1000px;
+            /* height: 300px; */
+            margin: auto;
+            margin-bottom: 50px;
+            padding: 20px;
+            border: 1px solid white;
+        }
+        .sekcjal{
+            width: 33%;
+            float: left;
+            margin: auto;
+            padding-top: 50px;
+            text-align: center;
+        }
+        .sekcjap{
+            width: 56%;
+            float: left;
+            border-left: 1px solid white;
+            padding-left: 60px;
+            min-height: 100px;
+        }
+        .odpowiedz{
+            text-align: right;
+        }
+        .nowypost{
+            margin:auto;
+            width: 950px;
+            min-height: 500px;
+            border: 1px solid white;
+            padding: 50px;
+        }
+        .header{
+            width: 100%;
+            height: 300px;
+            border-bottom: 1px solid white;
+        }
+        .dzial{
+            /* min-height: 500px; */
+            border: 1px solid white;
+            margin-bottom: 30px;
+            padding: 20px;
+            padding-bottom: 40px;
+        }
+        .post{
+            width: 85%;
+            margin: auto;
+            border: 1px solid white;
+            font-size: 20px;
+            margin-top: 20px;
+            padding-top:10px;
+            padding-bottom:10px;
+        }
+        .postl{
+            text-align: center;
+            width: 33%;
+            float: left;
+
+        }
+        .posts{
+            text-align: center;
+            width: 33%;
+            float: left;
+        }
+        .postp{
+            text-align: center;
+            width: 34%;
+            float: left;
+            color: gray;
+        }
+        .npost{
+            text-align: right;
+            font-size: 20px;
+            color: aqua;
+        }
+
+
     </style>
 </head>
+
+
 <!--<text th:text="${post.tresc}"></text>-->
+<!--<div th:each="post: ${dzial.posty}">-->
 
 
 <body>
-
+<div class="header">
+    <a th:href="@{login}" class="zaloguj">Zaloguj</a>
+    <br>
+    <a th:href="@{/zarejestruj}" class="zarejestruj">Zarejestruj się</a>
+    <br>
+    <a th:href="@{glowna}" class="login">STRONA GŁÓWNA</a>
+    <br>
+    <text th:text="${nazwa}" class="login"></text>
+</div>
 <div class="container">
 
-
-
-    <div class="header">
-        <a th:href="@{login}" class="zaloguj">Zaloguj</a>
-        <br>
-        <a th:href="@{konto/zarejestruj}" class="zarejestruj">Zarejestruj się</a>
-        <br>
-        <a th:href="@{glowna}" class="login">STRONA GŁÓWNA</a>
-        <br>
-        <text th:text="${nazwa}" class="login"></text>
-    </div>
-    <br>
-    <div class="content">
-        <div th:each="dzial: ${dzialy}">
-            <div class="forum">
-                <div style="height:100px;">
-
-                    <text th:text="${dzial.nazwaDzialu}"></text>
-                    <a th:href="@{'/post/nowypost?dzialId='+${dzial.id}}">Nowy post</a>
-<!--                    <a th:href="@{'/category/edit/' + ${category.id}}">view</a>-->
-                </div>
-                <div th:each="post: ${dzial.posty}">
-                    <div class="sekcja">
-                        <div class="sekcja_lewo">
-                            <a th:href="@{'/post/' + ${post.id}}"><text th:text="${post.nazwa}"></text></a>
-                        </div>
-                        <div class="sekcja_srodek">220/2442</div>
-                        <div class="sekcja_prawo">Ostatnia aktywność : <text th:text="${post.zamknietePrzez}"></text></div>
-                    </div>
-                </div>
-            </div>
+    <div th:each="dzial: ${dzialy}" class="dzial">
+        <text class="tytul" th:text="${dzial.nazwaDzialu}"></text>
+        <a th:href="@{'/post/nowypost?dzialId=' + ${dzial.id}}" class="npost">Nowy post</a>
+        <div th:each="post: ${dzial.posty}" class="post">
+            <!--            <text class="postl" th:text="${post.nazwa}"></text>-->
+            <a th:href="@{'/post/' + ${post.id}}" class="postl">
+                <text th:text="${post.nazwa}"></text>
+            </a>
+            <text class="posts" th:text="${post.id}"></text>
+            <text class="postp" th:text="${post.zalozonePrzez.nazwa}"></text>
+            <div style="clear: both;"></div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

@@ -1,9 +1,9 @@
 package app.forum.repository;
 
-import app.forum.model.Odpowiedz;
+import app.forum.model.Komentarz;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OdpowiedzRepository extends JpaRepository<Odpowiedz,Long> {
+public interface KomentarzRepository extends JpaRepository<Komentarz,Long> {
 }

@@ -3,8 +3,10 @@ package app.forum.utils;
 
 import app.forum.model.Dzial;
 import app.forum.model.Post;
+import app.forum.model.Uzytkownik;
 import app.forum.service.DzialService;
 import app.forum.service.PostService;
+import app.forum.service.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +23,9 @@ public class Zasilator {
     @Autowired
     private DzialService dzialService;
 
+    @Autowired
+    private UzytkownikService uzytkownikService;
+
     @PostConstruct
     public void met() {
 //        posty();
@@ -31,11 +36,20 @@ public class Zasilator {
     @Transactional
     public void dzialy() {
 
+        Uzytkownik u1 = uzytkownikService.zapisz(Uzytkownik.builder()
+                .haslo("123")
+                .nazwa("user1").build());
+        Uzytkownik u2 = uzytkownikService.zapisz(Uzytkownik.builder()
+                .haslo("1234")
+                .nazwa("user2").build());
+
+
+
         Dzial dzial1 = Dzial.builder().nazwaDzialu("Dzial pierwszy").opis("Krotki opis ").build();
         Dzial dzial2 = Dzial.builder().nazwaDzialu("Dzial drugi").opis("Krotki opis ").build();
 
-        List<Post> posty1 = posty();
-        List<Post> posty2 = posty();
+        List<Post> posty1 = posty(u1);
+        List<Post> posty2 = posty(u2);
 
         dzial1.setPosty(posty1);
         dzial2.setPosty(posty2);
@@ -46,20 +60,23 @@ public class Zasilator {
         dzialService.zapiszWszystkie(List.of(dzial1, dzial2));
 
 
-        List<Dzial> dzials=dzialService.pobierzDzialy();
-        List<Post> posts=postService.pobierzPosty();
+        List<Dzial> dzials = dzialService.pobierzDzialy();
+        List<Post> posts = postService.pobierzPosty();
         System.out.println(dzials.toString());
         System.out.println(posts.toString());
     }
 
 
-    public List<Post> posty() {
+    public List<Post> posty(Uzytkownik u) {
+
+
+
         Post post1 = Post.builder()
                 .dataZalozenia(null)
                 .dataZamkniecia(null)
                 .nazwa("Nazwa postu")
                 .tresc("Tresc abcheadjd iasd hszkjka dkjsakj ")
-                .zalozonePrzez(null)
+                .zalozonePrzez(u)
                 .zamknietePrzez("null")
                 .build();
         Post post2 = Post.builder()
@@ -67,7 +84,7 @@ public class Zasilator {
                 .dataZamkniecia(null)
                 .nazwa("Nazwa postu")
                 .tresc("Tresc abcheadjd iasd hszkjka dkjsakj ")
-                .zalozonePrzez(null)
+                .zalozonePrzez(u)
                 .zamknietePrzez("null")
                 .build();
         Post post3 = Post.builder()
@@ -75,7 +92,7 @@ public class Zasilator {
                 .dataZamkniecia(null)
                 .nazwa("Nazwa postu")
                 .tresc("Tresc abcheadjd iasd hszkjka dkjsakj ")
-                .zalozonePrzez(null)
+                .zalozonePrzez(u)
                 .zamknietePrzez(null)
                 .build();
         List<Post> posty = List.of(post1, post2, post3);

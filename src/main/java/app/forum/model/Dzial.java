@@ -15,13 +15,13 @@ import java.util.List;
 public class Dzial {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nazwaDzialu;
     private String opis;
 
-    @OneToMany(mappedBy = "dzial",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "dzial",cascade = CascadeType.ALL)
     private List<Post> posty;
 
     @Override

@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface DzialRepository extends JpaRepository<Dzial,Long> {
-    @Query(value = "select * from dzial",nativeQuery = true)
+//    @Query(value = "select * from dzial",nativeQuery = true)
+    @Query(value = "select d from Dzial d",nativeQuery = false)
     List<Dzial> getAll();
 }
