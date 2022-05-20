@@ -1,0 +1,67 @@
+package app.forum.service;
+
+import app.forum.model.Ban;
+import app.forum.model.Uzytkownik;
+import app.forum.repository.BanRepository;
+import app.forum.utils.DodajBanaRequest;
+import app.forum.utils.OdpowiedzBazowa;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Service;
+
+@Service
+public class BanService {
+
+    @Autowired
+    private BanRepository banRepository;
+
+    @Autowired
+    private UzytkownikService uzytkownikService;
+
+    public OdpowiedzBazowa dodajBana(DodajBanaRequest request){
+        OdpowiedzBazowa odp = new OdpowiedzBazowa();
+        try {
+            validujRequest(request);
+            Uzytkownik uzytkownikDoZbanowania = uzytkownikService.pobierzPoId(request.getId());
+            Ban ban = stworzBana(uzytkownikDoZbanowania,request);
+
+            odp.setSukces(true);
+            odp.setKomunikat("Uzytkownik "+uzytkownikDoZbanowania.getNazwa()+" zostal zbanowany");
+            return odp;
+        } catch (Exception e){
+            e.printStackTrace();
+            odp.setSukces(false);
+            odp.setKomunikat(e.getMessage());
+            return odp;
+        }
+    }
+
+    private Ban stworzBana(Uzytkownik uzytkownikDoZbanowania, DodajBanaRequest request) {
+
+        Uzytkownik dodajacyBana = uzytkownikService.zwrocZalogowanego();
+        Ban ban = Ban.builder().build();
+
+        return ban;
+    }
+
+    private void validujRequest(DodajBanaRequest request) {
+
+
+        if(request.getId() == null){
+            throw new IllegalArgumentException("Brak id uzytkownika");
+        }
+        Uzytkownik uzytkownikDoZbanowania = uzytkownikService.pobierzPoId(request.getId());
+
+        if(uzytkownikDoZbanowania == null){
+            throw new RuntimeException("Brak takiego uzytkownika");
+        }
+        if(uzytkownikDoZbanowania.getAuthorities().stream()
+                .anyMatch(g -> g.equals(new SimpleGrantedAuthority("ADMIN")))){
+            throw new IllegalCallerException("Nie mozesz zbanowac admina");
+        }
+        if(request.getPowod() == null || request.getPowod().isEmpty()){
+            throw new IllegalArgumentException("Brak powodu bana");
+        }
+    }
+}

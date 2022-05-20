@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,34 +17,32 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class Uzytkownik implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nazwa;
     private String email;
     private String haslo;
 
+    private LocalDateTime dataUtworzenia;
     @OneToMany(mappedBy = "zalozonePrzez")
     private List<Post> posty;
-
     @OneToMany(mappedBy = "uzytkownik")
     private List<Komentarz> komentarze;
-
     @OneToMany(mappedBy = "uzytkownik")
     private List<Sesja> sesje;
 
-    @Override
-    public String toString() {
-        return "Uzytkownik{" +
-                "id=" + id +
-                ", nazwa='" + nazwa + '\'' +
-                ", email='" + email + '\'' +
-                ", haslo='" + haslo + '\'' +
-                '}';
-    }
+    @OneToMany(mappedBy = "uzytkownik")
+    private List<Ban> listaBanow;
 
+    @OneToMany(mappedBy = "zalozonePrzez")
+    private List<Ban> rozdaneBany;
+
+//    @OneToMany(mappedBy = "zablokowanyPrzez")
+//    private List<Uzytkownik> zablokowaniUzytkownicy;
+//
+//    @ManyToOne
+//    private Uzytkownik zablokowanyPrzez;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("user"));
@@ -66,7 +65,10 @@ public class Uzytkownik implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+
+        boolean czyZbanowany = false;
+        czyZbanowany=listaBanow.stream().noneMatch(ban -> ban.getCzyAktywny().equals(Boolean.TRUE));
+        return czyZbanowany;
     }
 
     @Override
@@ -78,4 +80,16 @@ public class Uzytkownik implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+    @Override
+    public String toString() {
+        return "Uzytkownik{" +
+                "id=" + id +
+                ", nazwa='" + nazwa + '\'' +
+                ", email='" + email + '\'' +
+                ", haslo='" + haslo + '\'' +
+                '}';
+    }
+
 }

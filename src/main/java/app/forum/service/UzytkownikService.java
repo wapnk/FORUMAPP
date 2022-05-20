@@ -93,7 +93,7 @@ public class UzytkownikService implements UserDetailsService {
         } else {
             listaUzytkowniow.forEach(u -> log.info("Znaleziony uzytkownik : " + u.getNazwa()));
             listaUzytkowniow = listaUzytkowniow.stream().filter(u -> u.getNazwa().equals(username)).collect(Collectors.toList());
-            if (listaUzytkowniow == null || listaUzytkowniow.isEmpty()) {
+            if (listaUzytkowniow.isEmpty()) {
                 log.info("Brak uzytkownika " + username + " w bazie");
                 return null;
             } else {
@@ -129,5 +129,13 @@ public class UzytkownikService implements UserDetailsService {
 
     public Uzytkownik zapisz(Uzytkownik uzytkownik) {
         return uzytkownikRepository.save(uzytkownik);
+    }
+
+    public Uzytkownik pobierzPoId(Long id) {
+
+        Uzytkownik u = uzytkownikRepository.getById(id);
+
+
+        return u;
     }
 }

@@ -6,6 +6,7 @@ import app.forum.model.Post;
 import app.forum.model.Uzytkownik;
 import app.forum.restcontroller.DzialRestController;
 import app.forum.restcontroller.PostRestController;
+import app.forum.restcontroller.UzytkownikRestController;
 import app.forum.service.UzytkownikService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,11 @@ public class Controller {
     PostRestController postRestController;
     @Autowired
     DzialRestController dzialRestController;
-
     @Autowired
     UzytkownikService uzytkownikService;
+
+    @Autowired
+    UzytkownikRestController uzytkownikRestController;
 
     @GetMapping("/glowna")
     public String glowna(Model model) {
@@ -53,9 +56,17 @@ public class Controller {
         return "nowy-post";
     }
 
-    @GetMapping("zarejestruj")
+    @GetMapping("/zarejestruj")
     public String zarejestruj(Model model) {
 
         return "zarejestruj";
+    }
+
+    @GetMapping("/uzytkownik/{id}")
+    public String zwrocUzytkownika(@PathVariable Long id, Model model) {
+
+        Uzytkownik u = uzytkownikRestController.zwrocUzytkownikaPoId(id);
+        model.addAttribute("u",u);
+        return "uzytkownik";
     }
 }

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background-color :#1c1c1c;
+        }
+        .usr{
+            margin:auto;
+            width:1000px;
+            text-align:center;
+            padding:30px;
+        }
+        .napis{
+            color:white;
+            font-size:24px;
+            margin:10px;
+        }
+
+
+
+    </style>
+</head>
+<!--<text th:text="${post.tresc}"></text>-->
+<!--<div th:each="post: ${dzial.posty}">-->
+<body>
+
+<div class="usr">
+    <text th:text="${u.nazwa}" class="napis"></text>
+    <br>
+    <text th:text="${u.email}" class="napis"></text>
+
+    <div class="napis">Lista postów</div>
+    <div th:each="post: ${u.posty}">
+        <a th:href="@{'/post/' + ${post.id}}" class="napis">
+            <text th:text="${post.nazwa}"></text>
+        </a>
+        <br>
+    </div>
+
+    <div th:each="kom: ${u.komentarze}">
+
+        <div class="napis">Komentarz o tresci :
+            <text th:text="${kom.tresc}"></text>
+            w poście
+            <a th:href="@{'/post/' + ${kom.post.id}}">
+                <text th:text="${kom.post.nazwa}"></text>
+            </a>
+        </div>
+
+        <br>
+    </div>
+
+</div>
+
+</body>
+</html>
