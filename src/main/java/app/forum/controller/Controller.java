@@ -1,7 +1,6 @@
 package app.forum.controller;
 
 import app.forum.model.Dzial;
-import app.forum.model.Komentarz;
 import app.forum.model.Post;
 import app.forum.model.Uzytkownik;
 import app.forum.restcontroller.DzialRestController;

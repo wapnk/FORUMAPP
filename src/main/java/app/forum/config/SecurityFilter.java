@@ -1,16 +1,16 @@
 package app.forum.config;
 
+import app.forum.exception.BanException;
 import app.forum.model.Uzytkownik;
 import app.forum.service.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Component
+//@Component
 public class SecurityFilter implements Filter {
 
     @Autowired
@@ -27,8 +27,8 @@ public class SecurityFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         Uzytkownik uzytkownik = uzytkownikService.zwrocZalogowanego();
         if (!uzytkownik.isAccountNonLocked()) {
-            response.sendError(404);
-//            throw new RuntimeException("Zostales zbanowany na tym forum");
+//            response.sendError(404);
+            throw new BanException("Zostales zbanowany na tym forum");
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
