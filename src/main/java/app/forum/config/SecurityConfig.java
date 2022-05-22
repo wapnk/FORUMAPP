@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
+import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,6 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UzytkownikService uzytkownikService;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -33,7 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationProvider authenticationProvider() {
         return new AuthenticationProviderImpl();
     }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(uzytkownikService);
@@ -48,10 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/sql/**").permitAll()
+                .antMatchers("/sql/**").hasRole("ADMIN")//.permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")//.permitAll()
                 .antMatchers("/glowna").permitAll()
                 .antMatchers("/api/uzytkownik/zarejestruj").permitAll()
-                .antMatchers("/api/**").authenticated()
+                .antMatchers("/api/**").hasAnyRole("ADMIN", "USER")
                 .and().formLogin().permitAll();
 
     }

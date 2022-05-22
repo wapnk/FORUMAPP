@@ -19,10 +19,10 @@ public class Komentarz {
     private String tresc;
     private LocalDateTime dataDodania;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Uzytkownik uzytkownik;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Post post;
 
     @Override

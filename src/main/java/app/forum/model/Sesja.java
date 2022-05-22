@@ -3,7 +3,7 @@ package app.forum.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.servlet.http.HttpSession;
+//import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,7 +19,7 @@ public class Sesja  {
     private Long id;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Uzytkownik uzytkownik;
 
     private String klucz;

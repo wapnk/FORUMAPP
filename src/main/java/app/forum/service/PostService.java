@@ -63,7 +63,6 @@ public class PostService {
                 .tresc(request.getTresc())
                 .zalozonePrzez(u)
                 .build();
-        dzial.getPosty().add(post);
         return post;
     }
 

@@ -6,12 +6,14 @@ import app.forum.utils.OdpowiedzBazowa;
 import app.forum.utils.RejestrujUzytkownikaRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -132,10 +134,11 @@ public class UzytkownikService implements UserDetailsService {
     }
 
     public Uzytkownik pobierzPoId(Long id) {
-
         Uzytkownik u = uzytkownikRepository.getById(id);
-
-
         return u;
+    }
+
+    public List<Uzytkownik> getAll() {
+        return uzytkownikRepository.findAll();
     }
 }

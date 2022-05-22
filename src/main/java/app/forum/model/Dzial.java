@@ -3,6 +3,7 @@ package app.forum.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -21,7 +22,7 @@ public class Dzial {
     private String nazwaDzialu;
     private String opis;
 
-    @OneToMany(mappedBy = "dzial",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dzial")
     private List<Post> posty;
 
     @Override

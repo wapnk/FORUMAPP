@@ -23,7 +23,7 @@ public class KomentarzRestController {
     public OdpowiedzBazowa dodajPost(DodajKomentarzRequest request, HttpServletResponse response) throws IOException {
 
         OdpowiedzBazowa odp = odpowiedzService.dodajKomentarz(request);
-        if(odp.isSukces()) response.sendRedirect("http://www.localhost:8080/post/"+request.postId);
+        if(odp.isSukces()) response.sendRedirect("/post/"+request.postId);
         return odp;
     }
 }

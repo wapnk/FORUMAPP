@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -27,10 +26,12 @@ public class SecurityFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         Uzytkownik uzytkownik = uzytkownikService.zwrocZalogowanego();
-        if(!uzytkownik.isAccountNonLocked()){
-            throw new RuntimeException("Zostales zbanowany na tym forum");
+        if (!uzytkownik.isAccountNonLocked()) {
+            response.sendError(404);
+//            throw new RuntimeException("Zostales zbanowany na tym forum");
         }
-        filterChain.doFilter(servletRequest,servletResponse);
+
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override

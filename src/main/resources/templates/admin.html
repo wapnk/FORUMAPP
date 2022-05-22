@@ -1,0 +1,173 @@
+<head>
+    <style>
+            body{
+            background-color :#1c1c1c;
+        }
+        input{
+            background-color: #393939;
+            font-size: 24px;
+            margin:30px;
+            /* margin-bottom: 20px; */
+            border:1px solid white;
+        }
+        label{
+            font-size: 24px;
+
+        }
+        .submit{
+            background-color :#ffffff;
+
+        }
+        .container{
+            margin: auto;
+            width: 1200px;
+            height: 1000px;
+            padding: 20px;
+            padding-top:100px;
+            background: linear-gradient(to bottom, #1f1f1f, #242424);
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+            text-align: center;
+            color: white;
+        }
+        .tytul{
+            font-size: 34px;
+            text-align: center;
+            color:white
+        }
+
+        .formularz{
+            text-align: center;
+            padding-top:100px;
+            /* margin-left:50px; */
+        }
+        .sekcja{
+            width: 1000px;
+            /* height: 300px; */
+            margin: auto;
+            margin-bottom: 50px;
+            padding: 20px;
+            border: 1px solid white;
+        }
+        .sekcjal{
+            width: 33%;
+            float: left;
+            margin: auto;
+            padding-top: 50px;
+            text-align: center;
+        }
+        .sekcjap{
+            width: 56%;
+            float: left;
+            border-left: 1px solid white;
+            padding-left: 60px;
+            min-height: 100px;
+        }
+        .odpowiedz{
+            text-align: right;
+        }
+        .nowypost{
+            margin:auto;
+            width: 950px;
+            min-height: 500px;
+            border: 1px solid white;
+            padding: 50px;
+        }
+        .header{
+            width: 100%;
+            height: 300px;
+            border-bottom: 1px solid white;
+        }
+        .dzial{
+            /* min-height: 500px; */
+            border: 1px solid white;
+            margin-bottom: 30px;
+            padding: 20px;
+            padding-bottom: 40px;
+        }
+        .post{
+            width: 85%;
+            margin: auto;
+            border: 1px solid white;
+            font-size: 20px;
+            margin-top: 20px;
+            padding-top:10px;
+            padding-bottom:10px;
+        }
+        .postl{
+            text-align: center;
+            width: 33%;
+            float: left;
+
+        }
+        .posts{
+            text-align: center;
+            width: 33%;
+            float: left;
+        }
+        .postp{
+            text-align: center;
+            width: 34%;
+            float: left;
+            color: gray;
+        }
+        .npost{
+            text-align: right;
+            /* margin-left:950px; */
+            font-size: 20px;
+            color: aqua;
+        }
+        .adming{
+            text-align: center;
+            color: green;
+            font-size: 24px;
+            margin-top: 30px;
+        }
+        .adminl{
+            float: left;
+            /* text-align: center; */
+            color: green;
+            /* font-size: 24px; */
+            width: 33%;
+
+        }
+        .admins{
+            float: left;
+            /* text-align: center; */
+            color: white;
+            /* font-size: 24px; */
+            width: 33%;
+
+        }
+        .adminp{
+            float: left;
+            /* text-align: center; */
+            color: green;
+            /* font-size: 24px; */
+            width: 33%;
+
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="tytul">LISTA UŻYTKOWNIKÓW</div>
+    <!--  <text th:text="${post.tresc}"></text>-->
+    <!--  <div th:each="post: ${dzial.posty}">-->
+
+
+    <div th:each="usr: ${usrs}">
+        <div class="adming">
+            <text th:text="${usr.nazwa}" class="adminl"></text>
+            <div class="admins">
+                <text th:text="${usr.role}" class="adminl"></text>
+            </div>
+            <div class="adminp">
+                <a th:href="@{'/admin/zbanuj/' + ${usr.id}}" class="adminl">ZBANUJ</a>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+</div>
+</body>

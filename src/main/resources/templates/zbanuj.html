@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+                body{
+            background-color :#1c1c1c;
+        }
+        input{
+            background-color: #393939;
+            font-size: 24px;
+            margin-bottom: 20px;
+            border:1px solid white;
+        }
+        label{
+            font-size: 24px;
+
+        }
+        .submit{
+            background-color :#ffffff;
+
+        }
+        .cointainer{
+            margin: auto;
+            width: 1200px;
+            height: 1000px;
+            padding: 20px;
+            padding-top:100px;
+            background: linear-gradient(to bottom, #1f1f1f, #242424);
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+            color: white;
+        }
+        .tytul{
+            font-size: 34px;
+            text-align: center;
+            color:white
+        }
+
+        .formularz{
+            padding-top:100px;
+            margin-left:50px;
+        }
+        .sekcja{
+            width: 1000px;
+            /* height: 300px; */
+            margin: auto;
+            margin-bottom: 50px;
+            padding: 20px;
+            border: 1px solid white;
+        }
+        .sekcjal{
+            width: 33%;
+            float: left;
+            margin: auto;
+            padding-top: 50px;
+            text-align: center;
+        }
+        .sekcjap{
+            min-height: 100px;
+            width: 56%;
+            float: left;
+            border-left: 1px solid white;
+            padding-left: 60px;
+        }
+        .komentarz{
+            text-align: right;
+        }
+
+    </style>
+</head>
+<!--<text th:text="${post.tresc}"></text>-->
+<!--<div th:each="post: ${dzial.posty}">-->
+<body>
+
+<div class="cointainer">
+
+  <form action="/api/ban/dodajBana" class="komentarz" method="post">
+    <input style="display:none;" type="text" name="uId" th:value="${id}"/>
+    <input type="text" name="powod"/>
+    <input type="text" name="dataWygasniecia"/>
+
+    <input class="submit" type="submit" value="POTWIERDŹ" />
+  </form>
+
+</div>
+</body>
+</html>

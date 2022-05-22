@@ -4,6 +4,7 @@ package app.forum.utils;
 import app.forum.model.Dzial;
 import app.forum.model.Post;
 import app.forum.model.Uzytkownik;
+import app.forum.service.BanService;
 import app.forum.service.DzialService;
 import app.forum.service.PostService;
 import app.forum.service.UzytkownikService;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class Zasilator {
@@ -22,53 +25,66 @@ public class Zasilator {
     private PostService postService;
     @Autowired
     private DzialService dzialService;
-
     @Autowired
     private UzytkownikService uzytkownikService;
 
+    @Autowired
+    private BanService banService;
+
     @PostConstruct
+//    @Transactional
     public void met() {
-//        posty();
-        dzialy();
+
+        List<Dzial> dzialy = dzialy();
+
+        dzialService.zapiszWszystkie(dzialy);
+
+        Uzytkownik u1 = uzytkownikService.zapisz(Uzytkownik.builder()
+                .id(1L)
+                .haslo("123")
+                .nazwa("user1")
+                .role(Set.of("ROLE_USER"))
+                .build());
+        Uzytkownik u2 = uzytkownikService.zapisz(Uzytkownik.builder()
+                .id(2L)
+                .haslo("1234")
+                .nazwa("user2")
+                .role(Set.of("ROLE_USER"))
+                .build());
+        Uzytkownik u3 = uzytkownikService.zapisz(Uzytkownik.builder()
+                .id(3L)
+                .haslo("123")
+                .nazwa("wapnk")
+                .role(Set.of("ROLE_ADMIN"))
+                .build());
+
+        List<Post> posty1 = posty(null);
+        List<Post> posty2 = posty(null);
+
+
+        posty1.forEach(post -> post.setDzial(dzialy.get(0)));
+        posty2.forEach(post -> post.setDzial(dzialy.get(1)));
+        posty1.forEach(post -> post.setZalozonePrzez(u1));
+        posty2.forEach(post -> post.setZalozonePrzez(u2));
+
+
+        postService.zapiszWszystkie(posty1);
+        postService.zapiszWszystkie(posty2);
     }
 
 
-    @Transactional
-    public void dzialy() {
-
-        Uzytkownik u1 = uzytkownikService.zapisz(Uzytkownik.builder()
-                .haslo("123")
-                .nazwa("user1").build());
-        Uzytkownik u2 = uzytkownikService.zapisz(Uzytkownik.builder()
-                .haslo("1234")
-                .nazwa("user2").build());
-
+    //    @Transactional
+    public List<Dzial> dzialy() {
 
 
         Dzial dzial1 = Dzial.builder().nazwaDzialu("Dzial pierwszy").opis("Krotki opis ").build();
         Dzial dzial2 = Dzial.builder().nazwaDzialu("Dzial drugi").opis("Krotki opis ").build();
 
-        List<Post> posty1 = posty(u1);
-        List<Post> posty2 = posty(u2);
-
-        dzial1.setPosty(posty1);
-        dzial2.setPosty(posty2);
-        posty1.forEach(post -> post.setDzial(dzial1));
-        posty2.forEach(post -> post.setDzial(dzial2));
-
-//        postService.zapiszWszystkie(posty1);
-        dzialService.zapiszWszystkie(List.of(dzial1, dzial2));
-
-
-        List<Dzial> dzials = dzialService.pobierzDzialy();
-        List<Post> posts = postService.pobierzPosty();
-        System.out.println(dzials.toString());
-        System.out.println(posts.toString());
+        return dzialService.zapiszWszystkie(List.of(dzial1, dzial2));
     }
 
 
     public List<Post> posty(Uzytkownik u) {
-
 
 
         Post post1 = Post.builder()
@@ -95,11 +111,6 @@ public class Zasilator {
                 .zalozonePrzez(u)
                 .zamknietePrzez(null)
                 .build();
-        List<Post> posty = List.of(post1, post2, post3);
-//        posty=postService.zapiszWszystkie(posty);
-        System.out.println(posty.toString());
-
-//        postService.zapisz(posty);
-        return posty;
+        return List.of(post1, post2, post3);
     }
 }

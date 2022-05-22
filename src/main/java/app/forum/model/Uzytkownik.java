@@ -7,8 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -32,20 +35,29 @@ public class Uzytkownik implements UserDetails {
     @OneToMany(mappedBy = "uzytkownik")
     private List<Sesja> sesje;
 
-    @OneToMany(mappedBy = "uzytkownik")
+    @OneToMany(mappedBy = "uzytkownik", fetch = FetchType.EAGER)
     private List<Ban> listaBanow;
-
     @OneToMany(mappedBy = "zalozonePrzez")
     private List<Ban> rozdaneBany;
 
-//    @OneToMany(mappedBy = "zablokowanyPrzez")
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> role;
+
+    //    @OneToMany(mappedBy = "zablokowanyPrzez")
 //    private List<Uzytkownik> zablokowaniUzytkownicy;
 //
-//    @ManyToOne
+//    @ManyToOne(cascade = CascadeType.MERGE)
 //    private Uzytkownik zablokowanyPrzez;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("user"));
+
+        List<GrantedAuthority> authorities;
+        if (role != null && !role.isEmpty()) {
+            authorities = role.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+            return authorities;
+        }
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+
     }
 
     @Override
@@ -65,9 +77,11 @@ public class Uzytkownik implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-
+        if (nazwa.equals("anonymousUser")) {
+            return true;
+        }
         boolean czyZbanowany = false;
-        czyZbanowany=listaBanow.stream().noneMatch(ban -> ban.getCzyAktywny().equals(Boolean.TRUE));
+        czyZbanowany = listaBanow.stream().noneMatch(ban -> ban.getCzyAktywny().equals(Boolean.TRUE));
         return czyZbanowany;
     }
 
@@ -79,6 +93,10 @@ public class Uzytkownik implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void dodajRole(String rola){
+        role.add(rola);
     }
 
 

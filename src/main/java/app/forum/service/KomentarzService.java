@@ -54,7 +54,6 @@ public class KomentarzService {
                 .tresc(request.getTresc())
                 .post(post)
                 .build();
-        post.getKomentarze().add(k);
         return k;
     }
 

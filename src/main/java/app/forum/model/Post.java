@@ -23,17 +23,17 @@ public class Post {
     private String nazwa;
     private String tresc;
 
-    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post")
     private List<Komentarz> komentarze;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Uzytkownik zalozonePrzez;
     private LocalDateTime dataZalozenia;
     private String zamknietePrzez;
     private LocalDateTime dataZamkniecia;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Dzial dzial;
 
     @Override

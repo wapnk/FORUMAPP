@@ -23,10 +23,10 @@ public class Ban {
 
     private Boolean czyAktywny=Boolean.FALSE;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Uzytkownik uzytkownik;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Uzytkownik zalozonePrzez;
 
     private String powodBana;
