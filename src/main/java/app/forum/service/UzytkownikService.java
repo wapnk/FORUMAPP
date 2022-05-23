@@ -1,5 +1,6 @@
 package app.forum.service;
 
+import app.forum.exception.BaseException;
 import app.forum.model.Uzytkownik;
 import app.forum.repository.UzytkownikRepository;
 import app.forum.utils.OdpowiedzBazowa;
@@ -7,12 +8,14 @@ import app.forum.utils.RejestrujUzytkownikaRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.awt.print.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -134,8 +137,18 @@ public class UzytkownikService implements UserDetailsService {
     }
 
     public Uzytkownik pobierzPoId(Long id) {
-        Uzytkownik u = uzytkownikRepository.getById(id);
-        return u;
+        try {
+            Uzytkownik u = uzytkownikRepository.getById(id);
+            Uzytkownik zalogowany = zwrocZalogowanego();
+            if (zalogowany.getNazwa().equals("anonymousUser")) {
+                throw new BaseException("Musisz sie zalogowac ");
+
+            }
+            System.out.println(u.getNazwa());
+            return u;
+        } catch (EntityNotFoundException e){
+            throw new BaseException("Nie znaleziono uzytkownika o id "+id);
+        }
     }
 
     public List<Uzytkownik> getAll() {

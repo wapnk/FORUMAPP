@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body{
+            background-color: black;
+            font-size:30px;
+            padding:100px;
+            font-size:50px;
+        }
+        .tytul{
+            margin-bottom:30px;
+            color:white;
+        }
+        .tresc{
+            margin-bottom:30px;
+            font-size:30px;
+            color:white;
+        }
+        .kod{
+            color:grey;
+        }
+    </style>
+</head>
+<body>
+<!--  <text th:text="${post.tresc}"></text>-->
+<!--  <div th:each="post: ${dzial.posty}">-->
+
+<div class="tytul">
+    WYSTĄPIŁ BŁĄD
+    <text th:text="${status}" class="kod"></text>
+</div>
+<text th:text="${msg}" class="tresc"></text>
+</body>
