@@ -8,7 +8,6 @@ import app.forum.restcontroller.PostRestController;
 import app.forum.restcontroller.UzytkownikRestController;
 import app.forum.service.BanService;
 import app.forum.service.UzytkownikService;
-import app.forum.utils.DodajBanaRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;

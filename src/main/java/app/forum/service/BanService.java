@@ -1,5 +1,6 @@
 package app.forum.service;
 
+import app.forum.exception.BaseException;
 import app.forum.model.Ban;
 import app.forum.model.Uzytkownik;
 import app.forum.repository.BanRepository;
@@ -7,6 +8,7 @@ import app.forum.utils.DodajBanaRequest;
 import app.forum.utils.OdpowiedzBazowa;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired; ;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -36,7 +38,7 @@ public class BanService {
             e.printStackTrace();
             odp.setSukces(false);
             odp.setKomunikat(e.getMessage());
-            return odp;
+            throw new BaseException(e.getMessage(), HttpStatus.BAD_REQUEST,odp);
         }
     }
 

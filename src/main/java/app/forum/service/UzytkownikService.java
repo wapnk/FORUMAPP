@@ -43,7 +43,7 @@ public class UzytkownikService implements UserDetailsService {
             e.printStackTrace();
             odpowiedz.setSukces(false);
             odpowiedz.setKomunikat(e.getMessage());
-            return odpowiedz;
+            throw new BaseException(e.getMessage(),HttpStatus.BAD_REQUEST,odpowiedz);
         }
     }
 
@@ -110,6 +110,7 @@ public class UzytkownikService implements UserDetailsService {
 
     private void validujRequest(RejestrujUzytkownikaRequest u) {
 
+
         if (u.getNazwa() == null || u.getNazwa().isEmpty()) {
             throw new IllegalStateException("Nazwa pusta");
         }
@@ -129,7 +130,7 @@ public class UzytkownikService implements UserDetailsService {
 
     private boolean czySilneHaslo(String haslo) {
 
-        return true;
+        return haslo.length() >= 8;
     }
 
     public Uzytkownik zapisz(Uzytkownik uzytkownik) {

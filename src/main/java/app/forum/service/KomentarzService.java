@@ -1,5 +1,6 @@
 package app.forum.service;
 
+import app.forum.exception.BaseException;
 import app.forum.model.Komentarz;
 import app.forum.model.Post;
 import app.forum.model.Uzytkownik;
@@ -7,6 +8,7 @@ import app.forum.repository.KomentarzRepository;
 import app.forum.utils.DodajKomentarzRequest;
 import app.forum.utils.OdpowiedzBazowa;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -42,7 +44,7 @@ public class KomentarzService {
             e.printStackTrace();
             odp.setSukces(false);
             odp.setKomunikat(e.getMessage());
-            return odp;
+            throw new BaseException(e.getMessage(), HttpStatus.BAD_REQUEST,odp);
         }
     }
 

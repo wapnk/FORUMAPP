@@ -1,5 +1,6 @@
 package app.forum.service;
 
+import app.forum.exception.BaseException;
 import app.forum.model.Dzial;
 import app.forum.model.Post;
 import app.forum.model.Uzytkownik;
@@ -7,7 +8,9 @@ import app.forum.repository.PostRepository;
 import app.forum.utils.DodajPostRequest;
 import app.forum.utils.OdpowiedzBazowa;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,7 +33,7 @@ public class PostService {
 
 
     public OdpowiedzBazowa dodajPost(DodajPostRequest request) {
-
+        OdpowiedzBazowa odpowiedzBazowa = new OdpowiedzBazowa();
         try {
             validujRequest(request);
             Dzial dzial = dzialService.pobierzDzialPoId(request.getDzialId());
@@ -39,16 +42,14 @@ public class PostService {
             }
             Post post = stworzPost(request, dzial);
             post = postRepository.save(post);
-            return OdpowiedzBazowa.builder()
-                    .sukces(true)
-                    .komunikat("Post dodany @/post" + post.getId())
-                    .build();
+            odpowiedzBazowa.setSukces(true);
+            odpowiedzBazowa.setKomunikat("Post dodany @/post" + post.getId());
+            return odpowiedzBazowa;
         } catch (Exception e) {
             e.printStackTrace();
-            return OdpowiedzBazowa.builder()
-                    .sukces(false)
-                    .komunikat(e.getMessage())
-                    .build();
+            odpowiedzBazowa.setSukces(false);
+            odpowiedzBazowa.setKomunikat(e.getMessage());
+            throw new BaseException(e.getMessage(), HttpStatus.BAD_REQUEST, odpowiedzBazowa);
         }
     }
 
@@ -66,10 +67,12 @@ public class PostService {
     }
 
     private void validujRequest(DodajPostRequest request) {
-        if (request.getDzialId() == null || request.getTresc() == null || request.getTresc().isEmpty()) {
+        if (request.getDzialId() == null) {
             throw new IllegalArgumentException("Nieprawidlowe parametry zadania");
         } else if (request.getNazwa() == null || request.getNazwa().isEmpty()) {
-            throw new IllegalArgumentException("Nieprawidlowe parametry zadania");
+            throw new IllegalArgumentException("Post musi miec tytul");
+        } else if (request.getTresc() == null || request.getTresc().isEmpty()) {
+            throw new IllegalArgumentException("Post musi miec tresc");
         }
 
     }

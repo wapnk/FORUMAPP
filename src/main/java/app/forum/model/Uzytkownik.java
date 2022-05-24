@@ -1,6 +1,8 @@
 package app.forum.model;
 
+import app.forum.exception.BaseException;
 import lombok.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -80,9 +82,7 @@ public class Uzytkownik implements UserDetails {
         if (nazwa.equals("anonymousUser")) {
             return true;
         }
-        boolean czyZbanowany = false;
-        czyZbanowany = listaBanow.stream().noneMatch(ban -> ban.getCzyAktywny().equals(Boolean.TRUE));
-        return czyZbanowany;
+        return listaBanow.stream().noneMatch(ban -> ban.getCzyAktywny().equals(Boolean.TRUE));
     }
 
     @Override
@@ -95,7 +95,7 @@ public class Uzytkownik implements UserDetails {
         return true;
     }
 
-    public void dodajRole(String rola){
+    public void dodajRole(String rola) {
         role.add(rola);
     }
 
