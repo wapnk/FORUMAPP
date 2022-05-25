@@ -70,6 +70,11 @@ public class Zasilator {
 
         postService.zapiszWszystkie(posty1);
         postService.zapiszWszystkie(posty2);
+
+        sprawdzaBany();
+    }
+
+    private void sprawdzaBany() {
     }
 
 

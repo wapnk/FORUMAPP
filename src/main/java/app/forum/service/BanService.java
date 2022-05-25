@@ -50,7 +50,7 @@ public class BanService {
         }
         Ban ban = Ban.builder()
                 .czyAktywny(true)
-//                .dataWygasniecia(request.getDataWygasniecia())
+                .dataWygasniecia(request.getDataWygasniecia())
                 .dataZalozenia(LocalDateTime.now())
                 .zalozonePrzez(dodajacyBana)
                 .uzytkownik(uzytkownikDoZbanowania)
@@ -76,6 +76,33 @@ public class BanService {
         }
         if(request.getPowod() == null || request.getPowod().isEmpty()){
             throw new IllegalArgumentException("Brak powodu bana");
+        }
+    }
+    public OdpowiedzBazowa odbanuj(Long id){
+        OdpowiedzBazowa odp = new OdpowiedzBazowa();
+        try {
+            Ban ban = banRepository.getById(id);
+            ban.setDataWygasniecia(LocalDateTime.now());
+            ban.setCzyAktywny(false);
+            banRepository.save(ban);
+            odp.setSukces(true);
+            odp.setKomunikat("Udało się odbanować użytkownika");
+            return odp;
+        } catch (Exception e){
+            odp.setSukces(false);
+            odp.setKomunikat(e.getMessage());
+            throw new BaseException(e.getMessage(),HttpStatus.BAD_REQUEST,odp);
+        }
+    }
+
+    public void sprawdzBany(Uzytkownik uzytkownik) {
+        for(Ban ban : uzytkownik.getListaBanow()){
+            if(ban.getCzyAktywny()){
+                if(ban.getDataWygasniecia() != null && ban.getDataWygasniecia().isBefore(LocalDateTime.now())){
+                    ban.setCzyAktywny(false);
+                    banRepository.save(ban);
+                }
+            }
         }
     }
 }

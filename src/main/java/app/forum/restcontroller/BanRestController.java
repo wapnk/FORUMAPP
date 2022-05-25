@@ -4,6 +4,7 @@ import app.forum.service.BanService;
 import app.forum.utils.DodajBanaRequest;
 import app.forum.utils.OdpowiedzBazowa;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,12 @@ public class BanRestController {
         OdpowiedzBazowa odp = banService.dodajBana(request);
         if(odp.isSukces()) response.sendRedirect("/glowna");
         return odp;
-
     }
+
+    @PostMapping("/odbanuj/{id}")
+    public OdpowiedzBazowa odbanuj(@PathVariable("id") Long id) throws IOException {
+
+        return banService.odbanuj(id);
+    }
+
 }

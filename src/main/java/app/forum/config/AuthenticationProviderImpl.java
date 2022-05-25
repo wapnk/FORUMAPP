@@ -2,6 +2,7 @@ package app.forum.config;
 
 import app.forum.exception.AuthException;
 import app.forum.model.Uzytkownik;
+import app.forum.service.BanService;
 import app.forum.service.SesjaService;
 import app.forum.service.UzytkownikService;
 import lombok.extern.log4j.Log4j2;
@@ -22,6 +23,9 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private SesjaService sesjaService;
+
+    @Autowired
+    private BanService banService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -44,6 +48,9 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
     }
 
     private void sprawdzPola(Uzytkownik uzytkownik) {
+
+        banService.sprawdzBany(uzytkownik);
+
         if (!uzytkownik.isAccountNonLocked()) {
             throw new LockedException("Użytkownik " + uzytkownik.getNazwa() + " jest zablokowany");
         }

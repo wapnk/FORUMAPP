@@ -13,5 +13,5 @@ import java.util.Date;
 public class DodajBanaRequest {
     public Long uId;
     public String powod;
-    public String dataWygasniecia;
+    public LocalDateTime dataWygasniecia;
 }

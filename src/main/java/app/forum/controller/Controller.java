@@ -14,12 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @org.springframework.stereotype.Controller
-//@RequestMapping("forum")
 @Log4j2
 public class Controller {
 
@@ -68,22 +66,23 @@ public class Controller {
     public String zwrocUzytkownika(@PathVariable Long id, Model model) {
 
         Uzytkownik u = uzytkownikRestController.zwrocUzytkownikaPoId(id);
-        model.addAttribute("u",u);
+        model.addAttribute("u", u);
         return "uzytkownik";
     }
 
     @GetMapping("/admin")
-    public String panelAdmina(Model model){
+    public String panelAdmina(Model model) {
 
         List<Uzytkownik> usrs = uzytkownikService.getAll();
 
-        model.addAttribute("usrs",usrs);
+        model.addAttribute("usrs", usrs);
         return "admin";
     }
-    @GetMapping("/admin/zbanuj/{id}")
-    public String zbanuj(@PathVariable Long id, Model model){
 
-        model.addAttribute("id",id);
+    @GetMapping("/admin/zbanuj/{id}")
+    public String zbanuj(@PathVariable Long id, Model model) {
+
+        model.addAttribute("id", id);
         return "zbanuj";
     }
 
