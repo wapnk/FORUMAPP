@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class Controller {
 
     @GetMapping("/post/nowypost")
     public String nowyPost(Model model, @RequestParam(name = "dzialId") Long dzialId, HttpServletRequest request) {
+        
         model.addAttribute("dzialId", dzialId);
         return "nowy-post";
     }
